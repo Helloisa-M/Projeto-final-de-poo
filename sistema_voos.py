@@ -3,7 +3,7 @@ import uuid
 
 # -------------------------------------------------
 # 1) Interface                                   🡇
-# -------------------------------------------------
+# ------------------------------------------------
 class Logavel(ABC):
     """Qualquer classe logável DEVE implementar logar_entrada()."""
     @abstractmethod
