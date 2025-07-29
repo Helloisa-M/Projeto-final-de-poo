@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from abc import ABC, abstractmethod
 import uuid
 
@@ -166,6 +166,3 @@ if __name__ == "__main__":
       • Mostrar saídas no console para validar implementações.
     """
     pass
-=======
-
->>>>>>> d2f079e0f99b3c450e138b1aaa55eb7b8ef3606b
