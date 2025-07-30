@@ -43,7 +43,7 @@ class Pessoa:
     def nome(self):
         return self._nome #vai retornar o nome
     def __str__(self):
-        return f"{self._nome} ({self._cpf})" #vai retornar o nome e cpf da pessoa no sehuinte formato: "Maria (123.456.789-00)"
+        return f"{self._nome} ({self._cpf})" #vai retornar o nome e cpf da pessoa no seguinte formato: "Maria (123.456.789-00)"
 
 
 # -------------------------------------------------
