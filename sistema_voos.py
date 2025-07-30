@@ -18,18 +18,16 @@ class Logavel(ABC):
 class IdentificavelMixin:
     """Gera um ID único; combine-o com outras classes."""
     def __init__(self):
-        # TODO: gerar e armazenar um ID (use uuid.uuid4())
-        pass
+        self._id = str(uuid.uuid4()) #gera um id e armazena ele como string
+
     def get_id(self):
-        # TODO: retornar o ID
-        pass
+        return self._id() #retorna o id armazenado
 
 
 class AuditavelMixin:
     """Fornece logs simples ao console."""
     def log_evento(self, evento: str):
-        # TODO: imprimir no formato  [LOG] <mensagem>
-        pass
+         print(f"[LOG] {evento}") # vai imprimir no formato  [LOG] <mensagem> 
 
 
 # -------------------------------------------------
@@ -38,15 +36,14 @@ class AuditavelMixin:
 class Pessoa:
     """Classe base para pessoas do sistema."""
     def __init__(self, nome: str, cpf: str):
-        # TODO: armazenar nome e cpf como atributos protegidos
-        pass
+        self._nome = nome #armazenando nome como um atributo protegido
+        self._cpf = cpf #armazenando cpf como um atributo protegido
+
     @property
     def nome(self):
-        # TODO: retornar o nome
-        pass
+        return self._nome #vai retornar o nome
     def __str__(self):
-        # TODO: "Maria (123.456.789-00)"
-        pass
+        return f"{self._nome} ({self._cpf})" #vai retornar o nome e cpf da pessoa no sehuinte formato: "Maria (123.456.789-00)"
 
 
 # -------------------------------------------------
@@ -66,14 +63,16 @@ class Bagagem:
 class Passageiro(Pessoa):
     """Herda de Pessoa e possui bagagens."""
     def __init__(self, nome: str, cpf: str):
-        # TODO: chamar super().__init__ e criar lista vazia de bagagens
-        pass
+        super().__init__(nome, cpf) #chama o construtor da classe pessoa (que é a classe mãe)
+        self.bagagens = [] #lista vazia de bagagens
+
     def adicionar_bagagem(self, bagagem: Bagagem):
-        # TODO: adicionar bagagem à lista
-        pass
+        self.bagagens.append(bagagem) #adicina uma bagagem na lista de bagagens
+
     def listar_bagagens(self):
-        # TODO: imprimir as bagagens
-        pass
+        for bagagem in self.bagagens: #pra cada bagagem na lista de bagagens
+            print(f"-- {bagagem}") #imprime cada bagagem na lista
+        
 
 
 # -------------------------------------------------
@@ -84,7 +83,9 @@ class Passageiro(Pessoa):
 # - Atributos: cargo, matricula
 # - Métodos:
 #   • exibir_dados() → imprime nome, cargo, matrícula e ID
-#   • logar_entrada() → registra no log
+#   • logar_entrada() → registra no log 
+''' def logar_entrada(self):
+         print(f"{self.nome} (Funcionário) entrou no sistema.") '''
 
 
 # -------------------------------------------------
