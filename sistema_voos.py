@@ -121,7 +121,8 @@ class MiniAeronave:
 #   • listar_passageiros()
 #   • listar_tripulacao()
 class Voo:
-    def __init__(self, numero_voo: str, origem: str, destino: str, aeronave: MiniAeronave): #aeronave: MiniAeronave quer dizer que aeronave deve se ccomportar como um objeto de MiniAeronave
+    def __init__(self, numero_voo: str, origem: str, destino: str, aeronave: MiniAeronave): #aeronave: MiniAeronave quer dizer que aeronave deve se comportar como um objeto de MiniAeronave (relação de composição)
+        #armazena os atributos e cria as listas
         self.numero_voo = numero_voo
         self.origem = origem
         self.destino = destino
@@ -129,19 +130,26 @@ class Voo:
         self.passageiros = []
         self.tripulacao = []
 
-    def adicionar_passageiro():
+    def adicionar_passageiro(self, passageiro: Passageiro): #passageiro: Passageiro quer dizer que passageiro deve se comportar como um objeto da classe Passageiro
+        if passageiro in self.passageiros: #verifica se o passageiro específico já está na lista de passageiros
+            print("O passageiro já está no voo")
+        elif len(self.passageiros) < self.aeronave.capacidade: #verifica se a quantidade de passageiros está menor do que a capacidade máxima da aeronave
+            self.passageiros.append(passageiro) #se a condição for verdadeira, o passageiro pode ser adicionado
+        else: #se a condição não for verdadeira, o passageiro não vai ser colocado no voo pois a capacidade já vai ter sido atingida
+            print("A capacidade máxima da aeronave foi atingida")
+        
+
+    def adicionar_tripulante(self, funcionario: Funcionario):
         pass
 
-    def adicionar_tripulante():
-        pass
-
-    def listar_passageiros():
-        pass
+    def listar_passageiros(self):
+        for p in self.passageiros: #vai passar por cada elemento da lista de passageiros e impreimir eles
+            print(f"- {p}")
 
     def listar_tripulacao():
         pass
 
-    
+
 # -------------------------------------------------
 # 9) CompanhiaAerea                              🡇
 # -------------------------------------------------
