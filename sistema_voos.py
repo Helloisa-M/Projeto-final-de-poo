@@ -78,15 +78,6 @@ class Passageiro(Pessoa):
 # -------------------------------------------------
 # 6) Funcionario (herança múltipla + mixins)     🡇
 # -------------------------------------------------
-# TODO: Implementar a classe Funcionario
-# - Herda de Pessoa, IdentificavelMixin e Logavel (pode usar AuditavelMixin) x
-# - Atributos: cargo, matricula x
-# - Métodos:
-#   • exibir_dados() → imprime nome, cargo, matrícula e ID
-#   • logar_entrada() → registra no log 
-''' def logar_entrada(self):
-         print(f"{self.nome} (Funcionário) entrou no sistema.") '''
-
 class Funcionario(Pessoa, IdentificavelMixin, Logavel):
     def __init__(self, nome: str, cpf: str, cargo: str, matricula: str):
         Pessoa.__init__(nome, cpf) #chama o construtor da classe pessoa
@@ -111,11 +102,11 @@ class Funcionario(Pessoa, IdentificavelMixin, Logavel):
 class MiniAeronave:
     """Objeto da composição dentro de Voo."""
     def __init__(self, modelo: str, capacidade: int):
-        # TODO: armazenar modelo e capacidade
-        pass
+        self.modelo = modelo #armazenando o modelo
+        self.capacidade = capacidade #armazenando a capacidade
+
     def resumo_voo(self):
-        # TODO: retornar string com modelo e capacidade
-        pass
+        return f"Aeronave modelo {self.modelo} - Capacidade {self.capacidade}" #retorna uma string com o modelo e capacidade da aeronave
 
 
 # -------------------------------------------------
@@ -129,12 +120,31 @@ class MiniAeronave:
 #   • adicionar_tripulante()
 #   • listar_passageiros()
 #   • listar_tripulacao()
+class Voo:
+    def __init__(self, numero_voo: str, origem: str, destino: str, aeronave: MiniAeronave): #aeronave: MiniAeronave quer dizer que aeronave deve se ccomportar como um objeto de MiniAeronave
+        self.numero_voo = numero_voo
+        self.origem = origem
+        self.destino = destino
+        self.aeronave = aeronave
+        self.passageiros = []
+        self.tripulacao = []
 
+    def adicionar_passageiro():
+        pass
 
+    def adicionar_tripulante():
+        pass
+
+    def listar_passageiros():
+        pass
+
+    def listar_tripulacao():
+        pass
+
+    
 # -------------------------------------------------
 # 9) CompanhiaAerea                              🡇
 # -------------------------------------------------
-
 class CompanhiaAerea:
     """Agrupa seus voos (has-a)."""
     def __init__(self, nome: str):
@@ -144,26 +154,26 @@ class CompanhiaAerea:
             self._nome = "SemNome"  #usa nome padrão se inválido
         self._voos = []  #cria lista vazia de voos
 
-    @property
+    @property #permite acessar o atributo protegido
     def nome(self):
         return self._nome  #retorna o nome
 
-    @nome.setter
+    @nome.setter #permite acessar o atributo protegido e fazer modificações
     def nome(self, novo_nome: str):
-        if len(novo_nome) >= 3:
+        if len(novo_nome) >= 3: #se o novo nome tiver 3 ou mais letras, ele é válido
             self._nome = novo_nome  #atualiza nome se válido
 
     def adicionar_voo(self, voo):
         self._voos.append(voo)  #adiciona voo na lista
 
     def buscar_voo(self, numero: str):
-        for voo in self._voos:
-            if hasattr(voo, 'numero') and voo.numero == numero:
-                return voo  #retorna voo encontrado
-        return None  #retorna None se não achar
+        for voo in self._voos: #para cada voo na lista de voos
+            if voo.numero_voo == numero: #verifica se o número buscado pelo usuário é o número de algúm voo dentro da lista
+                return voo #retorna o voo se a condição for verdadeira
+        return None #caso a condição não seja verdadeira, vai retornar None
 
-    def listar_voos(self):
-        for voo in self._voos:
+    def listar_voos(self): 
+        for voo in self._voos: #para cada voo na lista de voos
             print(voo)  #imprime cada voo
 
 
