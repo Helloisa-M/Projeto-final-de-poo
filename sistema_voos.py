@@ -139,15 +139,19 @@ class Voo:
             print("A capacidade máxima da aeronave foi atingida")
         
 
-    def adicionar_tripulante(self, funcionario: Funcionario):
-        pass
+     def adicionar_tripulante(self, funcionario: Funcionario):
+        if funcionario in self.tripulacao:  #verifica se o funcionário já está na lista de tripulação
+            print("Tripulante já adicionado.")
+        else:
+            self.tripulacao.append(funcionario)  #adiciona o funcionário à lista de tripulação
 
     def listar_passageiros(self):
         for p in self.passageiros: #vai passar por cada elemento da lista de passageiros e impreimir eles
             print(f"- {p}")
 
-    def listar_tripulacao():
-        pass
+    def listar_tripulacao(self):
+        for t in self.tripulacao:  #percorre cada membro da tripulação
+            print(f"- {t}")       #imprime o nome (ou representação) do tripulante
 
 
 # -------------------------------------------------
