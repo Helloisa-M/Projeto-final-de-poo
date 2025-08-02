@@ -139,7 +139,7 @@ class Voo:
             print("A capacidade máxima da aeronave foi atingida")
         
 
-     def adicionar_tripulante(self, funcionario: Funcionario):
+    def adicionar_tripulante(self, funcionario: Funcionario):
         if funcionario in self.tripulacao:  #verifica se o funcionário já está na lista de tripulação
             print("Tripulante já adicionado.")
         else:
