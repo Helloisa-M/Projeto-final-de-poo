@@ -204,6 +204,26 @@ class CompanhiaAerea:
 #     imprime relatório de conformidade
 #   • __str__() → "Auditor <nome> (ID: ...)"
 
+classe Auditor(IdentificavelMixin, Logavel):
+    def __init__(self, nome: str):
+        super().__init__()
+        self.nome = nome 
+    def logar_entrada(self):
+        print(f"{self.nome} (Auditor) entrou no sistema.")
+    def auditar_voo(self, voo: Voo):
+        print(f"Auditoria do voo {voo.numero_voo}")
+        if len(voo.passageiros) > voo.aeronave.capacidade:
+            print("Excesso de passageiros.")
+        else:
+            print("Capacidade adequada!")
+        if len(voo.tripulação) ==  0:
+            print("Nenhum tripulante a bordo.")
+        else:
+            print("Mínimo de tripulantes adequado.")
+    
+    def _str_(self):
+       return f"Auditor {self.nome} (ID: {self.get_id()})"
+            
 
 # -------------------------------------------------
 # 11) Bloco de teste                             🡇
@@ -215,4 +235,19 @@ if __name__ == "__main__":
       • Adicionar bagagens, listar passageiros, auditar voos.
       • Mostrar saídas no console para validar implementações.
     """
-    pass
+    K&H = CompanhiaAerea("K&H")
+    MHKF = CompanhiaAerea("MHKF")
+
+    aeronave1 = MinhaAeronave("ATR 72", 8)
+    aeronave2 = MinhaAeronave("SCR 54", 12)
+
+    p1 = Passageiro("Helloísa", "123.456.789-00")
+    p2 = Passageiro("Katielly", "321.654.987-55")
+    p3 = Passageiro("Memetrios", "032.021.065-00")
+
+    f1 = Funcionario("Ytalo", "125.145.198-77", "Comissário", "Y335")  
+    f2 = Funcionario("João Felipe", "445.778.112-33", "Piloto", "J775")
+
+    
+
+    
