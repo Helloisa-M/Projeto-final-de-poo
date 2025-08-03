@@ -80,7 +80,7 @@ class Passageiro(Pessoa):
 # -------------------------------------------------
 class Funcionario(Pessoa, IdentificavelMixin, Logavel):
     def __init__(self, nome: str, cpf: str, cargo: str, matricula: str):
-        Pessoa.__init__(nome, cpf) #chama o construtor da classe pessoa
+        Pessoa.__init__(self,nome, cpf) #chama o construtor da classe pessoa
         IdentificavelMixin.__init__(self) #herda as coisas de IdentificavelMixin
         self.cargo = cargo
         self.matricula = matricula
@@ -112,14 +112,6 @@ class MiniAeronave:
 # -------------------------------------------------
 # 8) Voo (composição com MiniAeronave)           🡇
 # -------------------------------------------------
-# TODO: Implementar a classe Voo
-# - Atributos: numero_voo, origem, destino, aeronave
-# - Listas: passageiros, tripulacao
-# - Métodos:
-#   • adicionar_passageiro()  (verificar duplicidade e capacidade)
-#   • adicionar_tripulante()
-#   • listar_passageiros()
-#   • listar_tripulacao()
 class Voo:
     def __init__(self, numero_voo: str, origem: str, destino: str, aeronave: MiniAeronave): #aeronave: MiniAeronave quer dizer que aeronave deve se comportar como um objeto de MiniAeronave (relação de composição)
         #armazena os atributos e cria as listas
@@ -193,29 +185,22 @@ class CompanhiaAerea:
 # -------------------------------------------------
 # 10) Auditor (Identificável + Logável)          🡇
 # -------------------------------------------------
-# TODO: Implementar a classe Auditor
-# - Herda de IdentificavelMixin e Logavel
-# - Atributo: nome
-# - Métodos:
-#   • logar_entrada() → registra entrada no sistema
-#   • auditar_voo(voo) → verifica:
-#       ▸ passageiros ≤ capacidade
-#       ▸ existe ao menos 1 tripulante
-#     imprime relatório de conformidade
-#   • __str__() → "Auditor <nome> (ID: ...)"
 
-classe Auditor(IdentificavelMixin, Logavel):
+class Auditor(IdentificavelMixin, Logavel):
     def __init__(self, nome: str):
         super().__init__()
         self.nome = nome 
+
     def logar_entrada(self):
         print(f"{self.nome} (Auditor) entrou no sistema.")
+
     def auditar_voo(self, voo: Voo):
         print(f"Auditoria do voo {voo.numero_voo}")
         if len(voo.passageiros) > voo.aeronave.capacidade:
             print("Excesso de passageiros.")
         else:
             print("Capacidade adequada!")
+
         if len(voo.tripulação) ==  0:
             print("Nenhum tripulante a bordo.")
         else:
@@ -235,11 +220,12 @@ if __name__ == "__main__":
       • Adicionar bagagens, listar passageiros, auditar voos.
       • Mostrar saídas no console para validar implementações.
     """
-    K&H = CompanhiaAerea("K&H")
-    MHKF = CompanhiaAerea("MHKF")
+    kat = CompanhiaAerea("Kat")
+    helo = CompanhiaAerea("Helo")
+    
 
-    aeronave1 = MinhaAeronave("ATR 72", 8)
-    aeronave2 = MinhaAeronave("SCR 54", 12)
+    aeronave1 = MiniAeronave("ATR 72", 8)
+    aeronave2 = MiniAeronave("SCR 54", 12)
 
     p1 = Passageiro("Helloísa", "123.456.789-00")
     p2 = Passageiro("Katielly", "321.654.987-55")
