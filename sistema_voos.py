@@ -234,6 +234,10 @@ if __name__ == "__main__":
     f1 = Funcionario("Ytalo", "125.145.198-77", "Comissário", "Y335")  
     f2 = Funcionario("João Felipe", "445.778.112-33", "Piloto", "J775")
 
+    a1 = Auditor("Victoria")
+    a2 = Auditor("Vitória")
+
+    
     
 
     
