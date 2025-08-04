@@ -237,7 +237,60 @@ if __name__ == "__main__":
     a1 = Auditor("Victoria")
     a2 = Auditor("Vitória")
 
-    
-    
+    #criando os voos e adicionando às companhias
+    voo1 = Voo("V001", "Fortaleza", "Recife", aeronave1)
+    voo2 = Voo("V002", "Natal", "João Pessoa", aeronave2)
+
+    kat.adicionar_voo(voo1)
+    kat.adicionar_voo(voo2)
+
+    voo3 = Voo("V003", "São Paulo", "Rio de Janeiro", aeronave1)
+    voo4 = Voo("V004", "Brasília", "Salvador", aeronave2)
+
+    helo.adicionar_voo(voo3)
+    helo.adicionar_voo(voo4)
+
+    #adicionando passageiros aos voos
+    voo1.adicionar_passageiro(p1)
+    voo1.adicionar_passageiro(p2)
+    voo2.adicionar_passageiro(p3)
+
+    #adicionando funcionários (tripulação)
+    voo1.adicionar_tripulante(f1)
+    voo1.adicionar_tripulante(f2)
+
+    #adicionando bagagens
+    p1.adicionar_bagagem(Bagagem("Mochila", 4.5))
+    p1.adicionar_bagagem(Bagagem("Mala grande", 15.0))
+    p2.adicionar_bagagem(Bagagem("Bolsa", 3.0))
+
+    #listando bagagens de Helloísa
+    print("\nBagagens de Helloísa:")
+    p1.listar_bagagens()
+
+    #listando passageiros do voo1
+    print("\nPassageiros do Voo 1:")
+    voo1.listar_passageiros()
+
+    #listando tripulação do voo1
+    print("\nTripulação do Voo 1:")
+    voo1.listar_tripulacao()
+
+    #auditoria
+    print("\nAuditorias dos voos:")
+    a1.logar_entrada()
+    a1.auditar_voo(voo1)
+
+    a2.logar_entrada()
+    a2.auditar_voo(voo2)
+
+    #listar todos os voos da companhia Kat
+    print("\nVoos da Companhia Kat:")
+    kat.listar_voos()
+
+    #listar todos os voos da companhia Helo
+    print("\nVoos da Companhia Helo:")
+    helo.listar_voos()
+
 
     
