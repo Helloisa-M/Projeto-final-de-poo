@@ -21,7 +21,7 @@ class IdentificavelMixin:
         self._id = str(uuid.uuid4()) #gera um id e armazena ele como string
 
     def get_id(self):
-        return self._id() #retorna o id armazenado
+        return self._id #retorna o id armazenado
 
 
 class AuditavelMixin:
@@ -87,9 +87,9 @@ class Funcionario(Pessoa, IdentificavelMixin, Logavel):
 
     def exibir_dados(self): #imprime nome, cargo, matrícula e ID
         print(f"Nome: {self.nome}")
-        print(f"Cargo: {self.nome}")
-        print(f"Matrícula: {self.nome}")
-        print(f"Nome: {self.nome}")
+        print(f"Cargo: {self.cargo}")
+        print(f"Matrícula: {self.matricula}")
+        print(f"ID: {self.get_id()}")
 
     def logar_entrada(self):
         print(f"{self.nome} (Funcionário) entrou no sistema.")
@@ -144,7 +144,9 @@ class Voo:
     def listar_tripulacao(self):
         for t in self.tripulacao:  #percorre cada membro da tripulação
             print(f"- {t}")       #imprime o nome (ou representação) do tripulante
-
+    
+    def __str__(self): #vai definir como o objeto vai ser representado como uma string
+        return f"Voo {self.numero_voo} de {self.origem} para {self.destino} – {self.aeronave.resumo_voo()}" 
 
 # -------------------------------------------------
 # 9) CompanhiaAerea                              🡇
@@ -192,22 +194,22 @@ class Auditor(IdentificavelMixin, Logavel):
         self.nome = nome 
 
     def logar_entrada(self):
-        print(f"{self.nome} (Auditor) entrou no sistema.")
+        print(f"\n{self.nome} (Auditor) entrou no sistema.")
 
     def auditar_voo(self, voo: Voo):
-        print(f"Auditoria do voo {voo.numero_voo}")
+        print(f"\nAuditoria do voo {voo.numero_voo}")
         if len(voo.passageiros) > voo.aeronave.capacidade:
             print("Excesso de passageiros.")
         else:
             print("Capacidade adequada!")
 
-        if len(voo.tripulação) ==  0:
+        if len(voo.tripulacao) ==  0:
             print("Nenhum tripulante a bordo.")
         else:
             print("Mínimo de tripulantes adequado.")
     
-    def _str_(self):
-       return f"Auditor {self.nome} (ID: {self.get_id()})"
+    def __str__(self): 
+        return f"Auditor {self.nome} (ID: {self.get_id()})"
             
 
 # -------------------------------------------------
@@ -220,76 +222,103 @@ if __name__ == "__main__":
       • Adicionar bagagens, listar passageiros, auditar voos.
       • Mostrar saídas no console para validar implementações.
     """
+   # Criando companhias
     kat = CompanhiaAerea("Kat")
     helo = CompanhiaAerea("Helo")
     
-
+    # Criando aeronaves
     aeronave1 = MiniAeronave("ATR 72", 8)
     aeronave2 = MiniAeronave("SCR 54", 12)
 
+    # Criando passageiros
     p1 = Passageiro("Helloísa", "123.456.789-00")
     p2 = Passageiro("Katielly", "321.654.987-55")
     p3 = Passageiro("Memetrios", "032.021.065-00")
 
+    # Criando funcionários
     f1 = Funcionario("Ytalo", "125.145.198-77", "Comissário", "Y335")  
     f2 = Funcionario("João Felipe", "445.778.112-33", "Piloto", "J775")
 
-    a1 = Auditor("Victoria")
+    # Criando auditores
+    a1 = Auditor("Vivi")
     a2 = Auditor("Vitória")
 
-    #criando os voos e adicionando às companhias
+    # Criando voos e adicionando às companhias
     voo1 = Voo("V001", "Fortaleza", "Recife", aeronave1)
     voo2 = Voo("V002", "Natal", "João Pessoa", aeronave2)
-
     kat.adicionar_voo(voo1)
     kat.adicionar_voo(voo2)
 
     voo3 = Voo("V003", "São Paulo", "Rio de Janeiro", aeronave1)
     voo4 = Voo("V004", "Brasília", "Salvador", aeronave2)
-
     helo.adicionar_voo(voo3)
     helo.adicionar_voo(voo4)
 
+    # ------------------------------
+    # Seção: Passageiros e Funcionários
+    # ------------------------------
+    print("LISTA DE PASSAGEIROS:")
+    print(f"- {p1}")
+    print(f"- {p2}")
+    print(f"- {p3}")
+
+    print("\nLISTA DE FUNCIONÁRIOS:")
+    print(f"- {f1}")
+    print(f"- {f2}")
+
+    
     #adicionando passageiros aos voos
     voo1.adicionar_passageiro(p1)
     voo1.adicionar_passageiro(p2)
     voo2.adicionar_passageiro(p3)
 
-    #adicionando funcionários (tripulação)
+    #adicionando trupulantes aos voos
     voo1.adicionar_tripulante(f1)
     voo1.adicionar_tripulante(f2)
+
 
     #adicionando bagagens
     p1.adicionar_bagagem(Bagagem("Mochila", 4.5))
     p1.adicionar_bagagem(Bagagem("Mala grande", 15.0))
+    
     p2.adicionar_bagagem(Bagagem("Bolsa", 3.0))
 
-    #listando bagagens de Helloísa
-    print("\nBagagens de Helloísa:")
+
+    #lstando bagagens dos passageiros
+    print("\nBAGAGENS DE HELLOÍSA:")
     p1.listar_bagagens()
 
-    #listando passageiros do voo1
-    print("\nPassageiros do Voo 1:")
+    print("\nBAGAGENS DE KATIELLY:")
+    p2.listar_bagagens()
+    
+    #listando passageiros e tripulação dos voos
+    print("\nPASSAGEIROS DO VOO 1:")
     voo1.listar_passageiros()
 
-    #listando tripulação do voo1
-    print("\nTripulação do Voo 1:")
+    print("\nTRIPULAÇÃO DO VOO 1:")
     voo1.listar_tripulacao()
 
-    #auditoria
-    print("\nAuditorias dos voos:")
+    print("\nPASSAGEIROS DO VOO 2:")
+    voo2.listar_passageiros()
+
+    print("\nTRIPULAÇÃO DO VOO 2:")
+    voo2.listar_tripulacao()
+
+    
+    #auditorias
+    print("\nAUDITORIAS DOS VOOS:")
     a1.logar_entrada()
     a1.auditar_voo(voo1)
 
     a2.logar_entrada()
     a2.auditar_voo(voo2)
 
-    #listar todos os voos da companhia Kat
-    print("\nVoos da Companhia Kat:")
+
+    #listando voos por companhia
+    print("\nVOOS DA COMPANHIA KAT:")
     kat.listar_voos()
 
-    #listar todos os voos da companhia Helo
-    print("\nVoos da Companhia Helo:")
+    print("\nVOOS DA COMPANHIA HELO:")
     helo.listar_voos()
 
 
