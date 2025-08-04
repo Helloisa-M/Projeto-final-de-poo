@@ -254,18 +254,6 @@ if __name__ == "__main__":
     helo.adicionar_voo(voo3)
     helo.adicionar_voo(voo4)
 
-    # ------------------------------
-    # Seção: Passageiros e Funcionários
-    # ------------------------------
-    print("LISTA DE PASSAGEIROS:")
-    print(f"- {p1}")
-    print(f"- {p2}")
-    print(f"- {p3}")
-
-    print("\nLISTA DE FUNCIONÁRIOS:")
-    print(f"- {f1}")
-    print(f"- {f2}")
-
     
     #adicionando passageiros aos voos
     voo1.adicionar_passageiro(p1)
@@ -283,6 +271,9 @@ if __name__ == "__main__":
     
     p2.adicionar_bagagem(Bagagem("Bolsa", 3.0))
 
+    print("--------------------------------")
+    print("SISTEMA DE GERENCIAMENTO DE VOOS")
+    print("--------------------------------")
 
     #lstando bagagens dos passageiros
     print("\nBAGAGENS DE HELLOÍSA:")
