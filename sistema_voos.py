@@ -18,7 +18,7 @@ class Logavel(ABC):
 # -------------------------------------------------
 class IdentificavelMixin:
     """Gera um ID único; combine-o com outras classes."""
-    def __init__(self):
+    def __init__(self): 
         self._id = str(uuid.uuid4()) #gera um id e armazena ele como string
 
     def get_id(self):
@@ -44,7 +44,7 @@ class Pessoa:
     @property
     def nome(self):
         return self._nome #vai retornar o nome
-    def __str__(self):
+    def __str__(self): #vai definir como tudo vai ser exibito em formato de string
         return f"{self._nome} ({self._cpf})" #vai retornar o nome e cpf da pessoa no seguinte formato: "Maria (123.456.789-00)"
 
 
@@ -56,7 +56,7 @@ class Bagagem:
     def __init__(self, descricao: str, peso: float):
         self.descricao = descricao
         self.peso = peso  # kg
-    def __str__(self):
+    def __str__(self): #vai definir como tudo vai ser exibito em formato de string
         return f"{self.descricao} – {self.peso} kg"
 
 
@@ -204,20 +204,20 @@ class Auditor(IdentificavelMixin, Logavel):
     def logar_entrada(self): #implementação do método logar da interface Logavel
         print(f"\n{self.nome} (Auditor) entrou no sistema.")
 
-    def auditar_voo(self, voo: Voo):
+    def auditar_voo(self, voo: Voo): #método que vai validar o voo
         print(f"\nAuditoria do voo {voo.numero_voo}")
-        if len(voo.passageiros) > voo.aeronave.capacidade:
+        if len(voo.passageiros) > voo.aeronave.capacidade: #se a quantidade de passageiros no voo for maior que a capacidade da aeronave, vai printar que há excesso de passageiros
             print("Excesso de passageiros.")
         else:
-            print("Capacidade adequada!")
+            print("Capacidade adequada!") #se a condição não for verdadeira, vai printar que a quant. é adequada
 
-        if len(voo.tripulacao) ==  0:
+        if len(voo.tripulacao) ==  0: #se a quantidade de triputantes no voo for igual a 0, vai imprimir que não tem nenhum tripulante (assim o voo não pode acontecer)
             print("Nenhum tripulante a bordo.")
         else:
             print("Mínimo de tripulantes adequado.")
     
-    def __str__(self): 
-        return f"Auditor {self.nome} (ID: {self.get_id()})"
+    def __str__(self): #vai definir como tudo vai ser exibito em formato de string
+        return f"Auditor {self.nome} (ID: {self.get_id()})" 
             
 
 # -------------------------------------------------
@@ -278,7 +278,7 @@ if __name__ == "__main__":
     print("SISTEMA DE GERENCIAMENTO DE VOOS")
     print("--------------------------------")
 
-    print("\nDADOS DOS FUNCINÁRIOS:")
+    print("\nDADOS DOS FUNCIONÁRIOS:")
     f1.exibir_dados()
     print()
     f2.exibir_dados()
