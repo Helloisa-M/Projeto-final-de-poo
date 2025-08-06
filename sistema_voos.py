@@ -198,10 +198,10 @@ class CompanhiaAerea:
 #tem herença múltipla: usa mixin e implementa a interface Logavel (implementação)
 class Auditor(IdentificavelMixin, Logavel):
     def __init__(self, nome: str):
-        super().__init__()
-        self.nome = nome 
+        super().__init__() #vai chamar o método construtor da classe IdentificavelMixin
+        self.nome = nome #armazena o nome
 
-    def logar_entrada(self):
+    def logar_entrada(self): #implementação do método logar da interface Logavel
         print(f"\n{self.nome} (Auditor) entrou no sistema.")
 
     def auditar_voo(self, voo: Voo):
@@ -307,7 +307,7 @@ if __name__ == "__main__":
     #auditorias
     print("\nAUDITORIAS DOS VOOS:")
     a1.logar_entrada()
-    a1.auditar_voo(voo1)
+    a1.auditar_voo(voo1) #associação
 
     a2.logar_entrada()
     a2.auditar_voo(voo2)
