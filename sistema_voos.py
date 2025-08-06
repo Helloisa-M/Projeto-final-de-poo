@@ -5,6 +5,7 @@ import uuid
 # -------------------------------------------------
 # 1) Interface                                   🡇
 # -------------------------------------------------
+#Interface (classe abstrata): define um contrato para logar_entrada().
 class Logavel(ABC):
     """Qualquer classe logável DEVE implementar logar_entrada()."""
     @abstractmethod
@@ -33,6 +34,7 @@ class AuditavelMixin:
 # -------------------------------------------------
 # 3) Classe base Pessoa                          🡇
 # -------------------------------------------------
+#superclasse para Passageiro e Funcionario
 class Pessoa:
     """Classe base para pessoas do sistema."""
     def __init__(self, nome: str, cpf: str):
@@ -49,6 +51,7 @@ class Pessoa:
 # -------------------------------------------------
 # 4) Bagagem — classe simples                    🡇
 # -------------------------------------------------
+#classe usada em coomposição com Passageiro (se não existir passageiro, não existe bagagem)
 class Bagagem:
     def __init__(self, descricao: str, peso: float):
         self.descricao = descricao
@@ -60,6 +63,7 @@ class Bagagem:
 # -------------------------------------------------
 # 5) Passageiro                                  🡇
 # -------------------------------------------------
+#recebe a herença de Pessoa e tem composição com Bagagem
 class Passageiro(Pessoa):
     """Herda de Pessoa e possui bagagens."""
     def __init__(self, nome: str, cpf: str):
@@ -78,6 +82,7 @@ class Passageiro(Pessoa):
 # -------------------------------------------------
 # 6) Funcionario (herança múltipla + mixins)     🡇
 # -------------------------------------------------
+#tem herença múltipla: Pessoa + IdentificavelMixin + Interface Logavel (implementação)
 class Funcionario(Pessoa, IdentificavelMixin, Logavel):
     def __init__(self, nome: str, cpf: str, cargo: str, matricula: str):
         Pessoa.__init__(self,nome, cpf) #chama o construtor da classe pessoa
@@ -99,6 +104,7 @@ class Funcionario(Pessoa, IdentificavelMixin, Logavel):
 # -------------------------------------------------
 # 7) MiniAeronave                                🡇
 # -------------------------------------------------
+#tem composição com voo (o voo precisa de uma aeronave)
 class MiniAeronave:
     """Objeto da composição dentro de Voo."""
     def __init__(self, modelo: str, capacidade: int):
@@ -112,6 +118,7 @@ class MiniAeronave:
 # -------------------------------------------------
 # 8) Voo (composição com MiniAeronave)           🡇
 # -------------------------------------------------
+#tem agregação de Passageiros e Tripulantes (já que eles vão estar no voo) e composição com MiniAeroave (um voo não existe sem uma aeronave)
 class Voo:
     def __init__(self, numero_voo: str, origem: str, destino: str, aeronave: MiniAeronave): #aeronave: MiniAeronave quer dizer que aeronave deve se comportar como um objeto de MiniAeronave (relação de composição)
         #armazena os atributos e cria as listas
@@ -151,6 +158,7 @@ class Voo:
 # -------------------------------------------------
 # 9) CompanhiaAerea                              🡇
 # -------------------------------------------------
+#classe que agrega Voo (as companhias aéreas precisam que voos, mas continuam existindo sem eles)
 class CompanhiaAerea:
     """Agrupa seus voos (has-a)."""
     def __init__(self, nome: str):
@@ -187,7 +195,7 @@ class CompanhiaAerea:
 # -------------------------------------------------
 # 10) Auditor (Identificável + Logável)          🡇
 # -------------------------------------------------
-
+#tem herença múltipla: usa mixin e implementa a interface Logavel (implementação)
 class Auditor(IdentificavelMixin, Logavel):
     def __init__(self, nome: str):
         super().__init__()
@@ -216,12 +224,7 @@ class Auditor(IdentificavelMixin, Logavel):
 # 11) Bloco de teste                             🡇
 # -------------------------------------------------
 if __name__ == "__main__":
-    """
-    TODO:
-      • Criar 2 companhias, 2 voos cada, passageiros, funcionários e auditor.
-      • Adicionar bagagens, listar passageiros, auditar voos.
-      • Mostrar saídas no console para validar implementações.
-    """
+
    # Criando companhias
     kat = CompanhiaAerea("Kat")
     helo = CompanhiaAerea("Helo")
@@ -238,7 +241,7 @@ if __name__ == "__main__":
     # Criando funcionários
     f1 = Funcionario("Ytalo", "125.145.198-77", "Comissário", "Y335")  
     f2 = Funcionario("João Felipe", "445.778.112-33", "Piloto", "J775")
-
+    
     # Criando auditores
     a1 = Auditor("Vivi")
     a2 = Auditor("Vitória")
@@ -274,6 +277,11 @@ if __name__ == "__main__":
     print("--------------------------------")
     print("SISTEMA DE GERENCIAMENTO DE VOOS")
     print("--------------------------------")
+
+    print("\nDADOS DOS FUNCINÁRIOS:")
+    f1.exibir_dados()
+    print()
+    f2.exibir_dados()
 
     #lstando bagagens dos passageiros
     print("\nBAGAGENS DE HELLOÍSA:")
@@ -312,5 +320,7 @@ if __name__ == "__main__":
     print("\nVOOS DA COMPANHIA HELO:")
     helo.listar_voos()
 
-
+    #buscando voos
+    print("\nBUSCAR VOOS:")
+    print(kat.buscar_voo("V001"))
     
